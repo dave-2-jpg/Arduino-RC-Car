@@ -26,8 +26,8 @@ void Forward()
   digitalWrite(in1,HIGH);
   digitalWrite(in2,LOW);
   analogWrite(enb, 200);
-  digitalWrite(in3,HIGH);  // REVERSED - was LOW
-  digitalWrite(in4,LOW);   // REVERSED - was HIGH
+  digitalWrite(in3,HIGH);  
+  digitalWrite(in4,LOW);   
   }
  void Backward()
   {
@@ -35,7 +35,7 @@ void Forward()
   digitalWrite(in1,LOW);
   digitalWrite(in2,HIGH);
   analogWrite(enb, 200);
-  digitalWrite(in3,LOW);   // REVERSED - was HIGH
+  digitalWrite(in3,LOW);  
   digitalWrite(in4,HIGH);
   }
  void Stop()
@@ -62,7 +62,7 @@ void Forward()
     digitalWrite(in1,HIGH);
     digitalWrite(in2,LOW);
     analogWrite(enb, 0);
-    digitalWrite(in3,LOW);   // REVERSED - was HIGH
+    digitalWrite(in3,LOW);   
     digitalWrite(in4,LOW);
     }
 
@@ -70,16 +70,14 @@ unsigned long lastCode = 0;  // store last valid button
 
 void loop() {
   if (IrReceiver.decode()) {
-    unsigned long code = IrReceiver.decodedIRData.decodedRawData;
+    unsigned long code = IrReceiver.decodedIRData.decodedRawData; //decode the data
 
     // If repeat, use last stored code
-    if (IrReceiver.decodedIRData.flags & IRDATA_FLAGS_IS_REPEAT) {
+    if (IrReceiver.decodedIRData.flags & IRDATA_FLAGS_IS_REPEAT) { 
       code = lastCode;
     } else {
       lastCode = code;  // update lastCode only on new press
     }
-
-    Serial.println(code, HEX);  // Debug print
 
     if (code == 0xB946FF00) { // UP
       Forward();
@@ -103,3 +101,4 @@ void loop() {
 
 
       
+
